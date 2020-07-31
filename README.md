@@ -199,3 +199,20 @@ const value = (function() {
   - api 메세지는 관련된 정보를 얻을 수 있는 url을 제공해야 한다.
 
 - rest api 는 로드밸런서, 게이트웨이 같은 계층 구조를 가질 수 있다.
+
+
+### ORM Mapper / ORM 차이점
+
+- ORM mapper는 mybatis와 같은 것을 말한다.
+    - 쿼리를 직접 작성하고 SQL 문과 코드를 매핑한다.
+
+- ORM은 Object Relational Mapping의 줄임말이다.
+    - SQL을 직접 작성하지 않는다. 내장 메소드를 사용한다.
+
+
+
+### 유닛 테스트 / 통합 테스트 차이
+
+- 유닛 테스트: 함수의 코드가 잘 동작하는지 테스트 함
+
+- 통합테스트: db나 모듈을 모킹해서 request 단위로 잘 동작하는지 테스트한다.
