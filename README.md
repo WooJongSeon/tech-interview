@@ -25,7 +25,8 @@ js는 이벤트 기반의 싱글스레드 구조를 갖는다.
 ### 스택 오버 플로우 에러 정의
 
 자료형이 가질 수 있는 데이터 크기보다 더 큰 데이터를 넣었을때 발생하는 에러
-
+호출스택에 너무 많은 데이터가 쌓였을때.
+무한루프, 너무 많은 재귀호출시 발생한다.
 
 
 ### 이벤트 루프와 Promise의 관계
@@ -141,6 +142,7 @@ const value = (function() {
 모듈 패턴은 IIFE 함수를 호출해서 따로 변수를 할당하고 호출하지 않게 해준다.
 
 
+
 ### 다른 언어에서 nodejs로 포팅했을때 다른점, 어려운 점, 바꾼 이유
 
 - 타입 문제
@@ -175,6 +177,7 @@ const value = (function() {
   - 화면에 나오는 데이터를 바탕으로 설계한다.
 
 
+
 ### REST API의 정의. API 설계 방식
 
 - get post put delete 를 활용한다.
@@ -201,6 +204,7 @@ const value = (function() {
 - rest api 는 로드밸런서, 게이트웨이 같은 계층 구조를 가질 수 있다.
 
 
+
 ### ORM Mapper / ORM 차이점
 
 - ORM mapper는 mybatis와 같은 것을 말한다.
@@ -216,6 +220,7 @@ const value = (function() {
 - 유닛 테스트: 함수의 코드가 잘 동작하는지 테스트 함
 
 - 통합테스트: db나 모듈을 모킹해서 request 단위로 잘 동작하는지 테스트한다.
+
 
 
 ### 프로젝트 초기 세팅시 선택할 기술 스택과 그 이유
@@ -236,6 +241,7 @@ const value = (function() {
     - aws 인프라 사용
 
 
+
 ### 최근에 관심있는 기술, 읽은 책.
 
 - 관심있는 기술
@@ -244,3 +250,70 @@ const value = (function() {
 - 읽은 책
     - 클린 코더
     - 개발자의 일정 관리 / 프로젝트 관리 방법
+
+
+
+### 프로토타입의 정의 - 용도
+
+- 정의
+    - 객체의 생성자 정보, 자신을 생성한 객체에 대한 정보를 갖고 있다.
+
+- 용도
+    - 자신을 생성한 객체의 함수를 쓸 수 있게 해준다.
+    - 메모리 낭비를 줄여준다.
+
+
+### 제네레이터 설명 - 활용 방식
+
+다수의 비동기 실행 흐름을 제어 할 수 있다.
+
+```
+const axios = require('axios');
+function* apiCall() {
+  for (i in [1, 2, 3, 4, 5]) {
+    yield axios.get("https://api.spacexdata.com/v3/launches/latest");
+  }
+}
+
+const api = apiCall(); // 제네레이터 생성
+for (const key in [1, 2, 3, 4, 5]) {
+  api.next().value.then((value) => { // next 활용해서 하나씩 처리한다.
+    console.log(value);
+  }).catch((error) => {
+    console.error(error);
+  }) // 0
+}
+```
+
+
+### 동적언어에 비해서 컴파일 언어가 가지는 장점.
+
+- 동적언어
+    - 빠른 개발 속도
+    - 실행에 문제가 없지만 나중에 발견되는 문제가 있을 수 있다.
+
+- 컴파일언어
+    - 안정성
+    - 컴파일 타임에 많은 버그를 찾아낼 수 있다.
+
+
+### package.lock.json 정의
+
+- 모듈의 명세가 적힌 package.json에 비해서 설치했던 정확한 버전과 의존성 정보를 갖고 있다.
+- 저장소에 함께 push 하고 내려받아야 정확한 버전을 받을 수 있다.
+
+
+### call by value, call by reference 
+
+- call by value - 값을 파라미터로 전달하기
+    - js 함수에 대해서 값을 전달한다. number, string 이 여기에 해당한다.
+    - 전달되는 인자가 복사된다.
+
+- call by reference - 주소를 전달하기
+    - js 함수에 대해서 배열이나 객체의 경우 주소를 전달한다.
+    - 주소를 전달하면 속성 변경이 가능하다.
+
+
+### OOP 
+
+- Object Oriented Programming이란 객체의 상호작용을 3인칭 관찰자 시점에서 보고 모델링하는 프로그래밍 방식이다.
